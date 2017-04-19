@@ -1,0 +1,50 @@
+
+<div class="container">
+
+  <div class="page-header">
+    <div class="btn-toolbar pull-right">
+
+<a href="#"
+   class="btn btn-lg btn-default">
+  <i class="glyphicon glyphicon-plus"></i>
+  Add note
+</a>
+
+<a href="#"
+   class="btn btn-lg btn-default">
+  Categories
+</a>
+
+    </div>
+
+    <h1>{{ title }}</h1>
+  </div>
+
+  <div class="panel panel-default"
+    *ngFor="let note of notes">
+    <div class="panel-heading">
+      <div class="btn-toolbar pull-right">
+        <a href="#"
+           class="btn btn-sm btn-default">
+          <i class="glyphicon glyphicon-pencil"></i>
+          Modify
+        </a>
+        <a href="#"
+           class="btn btn-sm btn-default">
+          <i class="glyphicon glyphicon-trash"></i>
+          Delete
+        </a>
+      </div>
+      <span class="h3">
+        {{ note.title }} <small>{{ note.date }}</small>
+      </span>
+      <!-- Category 
+        <span class="label label-default">{{ note.category.name }}</span>
+      -->
+    </div>
+    <div class="panel-body">
+      {{ note.content }}
+    </div>
+  </div>
+
+</div>

@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
 
+import { Note } from './note';
+import { NOTES } from './mock-notes';
+
 @Component({
   selector: 'my-app',
-  template: `<h1>Hello {{name}}</h1>`,
+  template: `
+    <my-notes></my-notes>
+  `
 })
-export class AppComponent  { name = 'Angular'; }
+
+export class AppComponent  { 
+}
