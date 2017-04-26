@@ -1,50 +1,127 @@
-
 <div class="container">
 
   <div class="page-header">
     <div class="btn-toolbar pull-right">
 
-<a href="#"
-   class="btn btn-lg btn-default">
-  <i class="glyphicon glyphicon-plus"></i>
-  Add note
-</a>
+      <button class="btn btn-lg btn-default"
+        (click)="init_new_note()">
+        <i class="glyphicon glyphicon-plus"></i>
+        Add note
+      </button>
 
-<a href="#"
-   class="btn btn-lg btn-default">
-  Categories
-</a>
+      <a href="#"
+         class="btn btn-lg btn-default">
+        Categories
+      </a>
 
     </div>
 
     <h1>{{ title }}</h1>
-  </div>
 
-  <div class="panel panel-default"
-    *ngFor="let note of notes">
-    <div class="panel-heading">
-      <div class="btn-toolbar pull-right">
-        <a href="#"
-           class="btn btn-sm btn-default">
-          <i class="glyphicon glyphicon-pencil"></i>
-          Modify
-        </a>
-        <a href="#"
-           class="btn btn-sm btn-default">
-          <i class="glyphicon glyphicon-trash"></i>
-          Delete
-        </a>
+    </div>
+
+    <div *ngFor="let note of notes; let i = index;">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="btn-toolbar pull-right">
+            <button class="btn btn-sm btn-default"
+                    (click)="note_edited = i"
+                    *ngIf="note_edited != i">
+              <i class="glyphicon glyphicon-pencil"></i>
+              Modify
+            </button>
+            <button class="btn btn-sm btn-default"
+                    (click)="alert('del')">
+              <i class="glyphicon glyphicon-trash"></i>
+              Delete
+            </button>
+          </div>
+          <span class="h3">
+            {{ note.title }} <small>{{ note.date }}</small>
+          </span>
+          <!-- Category 
+            <span class="label label-default">{{ note.category.name }}</span>
+          -->
+        </div>
+        <div class="panel-body">
+          {{ note.content }}
+        </div>
       </div>
-      <span class="h3">
-        {{ note.title }} <small>{{ note.date }}</small>
-      </span>
-      <!-- Category 
-        <span class="label label-default">{{ note.category.name }}</span>
+
+      <!-- Note form -->
+      <div class="pannel form"
+           *ngIf="note_edited == i">
+        <div class="form-group">
+          <label for="title" class="control-label">Title</label>
+          <input id="title" 
+                 type="text" 
+                 class="form-control" 
+                 required="true"
+                 [(ngModel)]="note.title"/>
+        </div>
+        <div class="form-group">
+          <label for="content" class="control-label">Content</label>
+          <textarea id="content" 
+                    class="form-control" 
+                    required="true"
+                    [(ngModel)]="note.content">
+          </textarea>
+        </div>
+        <!--
+        <div class="form-group">
+          <select class="" [(ngModel)]="note.category">
+            <option *ngFor="let category of categories"
+                  [ngValue]="category">
+            {{ category.name }}
+            </option>
+          </select>
+        </div>
+        -->
+        <button class="btn btn-success" (click)="validate(note)">
+          Validate
+        </button>
+        <button class="btn btn-default" (click)="note_edited = -1">
+          Close
+        </button>
+      </div>
+
+    </div>
+  
+    <!-- Note form -->
+    <div class="pannel form"
+         *ngIf="new_note">
+      <div class="form-group">
+        <label for="title" class="control-label">Title</label>
+        <input id="title" 
+               type="text" 
+               class="form-control" 
+               required="true"
+               [(ngModel)]="new_note.title"/>
+      </div>
+      <div class="form-group">
+        <label for="content" class="control-label">Content</label>
+        <textarea id="content" 
+                  class="form-control" 
+                  required="true"
+                  [(ngModel)]="new_note.content">
+        </textarea>
+      </div>
+      <!--
+      <div class="form-group">
+        <select class="" [(ngModel)]="note.category">
+          <option *ngFor="let category of categories"
+                [ngValue]="category">
+          {{ category.name }}
+          </option>
+        </select>
+      </div>
       -->
+      <button class="btn btn-success" (click)="post_note(note)">
+        Validate
+      </button>
+      <button class="btn btn-default" (click)="del_new_note()">
+        Close
+      </button>
     </div>
-    <div class="panel-body">
-      {{ note.content }}
-    </div>
-  </div>
 
 </div>
