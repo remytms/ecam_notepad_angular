@@ -12,7 +12,6 @@ import { CATEGORIES } from './mock-categories';
 export class CategoriesComponent  { 
   title = 'Notepad';
 
-  //@Input() notes = NOTES;
   categories = CATEGORIES;
   category_edited = -1;
   new_category: Category = null;

@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 
+import { Category } from './categoy';
 import { Note } from './note';
+import { CATEGORIES } from './mock-categories';
 import { NOTES } from './mock-notes';
 
 @Component({
@@ -13,6 +15,7 @@ export class NotesComponent  {
 
   //@Input() notes = NOTES;
   notes = NOTES;
+  categories = CATEGORIES;
   note_edited = -1;
   new_note: Note = null;
 
