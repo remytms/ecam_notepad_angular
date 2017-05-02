@@ -6,7 +6,7 @@ import { NOTES } from './mock-notes';
 @Component({
   selector: 'my-app',
   template: `
-    <my-notes></my-notes>
+    <router-outlet></router-outlet>
   `
 })
 
