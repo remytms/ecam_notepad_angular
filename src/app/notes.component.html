@@ -4,7 +4,7 @@
     <div class="btn-toolbar pull-right">
 
       <button class="btn btn-lg btn-default"
-        (click)="init_new_note()">
+        (click)="initNewNote()">
         <i class="glyphicon glyphicon-plus"></i>
         Add note
       </button>
@@ -32,7 +32,7 @@
             Modify
           </button>
           <button class="btn btn-sm btn-default"
-                  (click)="alert('del')">
+                  (click)="deleteNote(note)">
             <i class="glyphicon glyphicon-trash"></i>
             Delete
           </button>
@@ -70,14 +70,16 @@
         </textarea>
       </div>
       <div class="form-group">
-        <select class="" [(ngModel)]="note.category">
+        <select class="form-control" [(ngModel)]="note.category">
           <option *ngFor="let category of categories"
-                [ngValue]="category">
+                  [ngValue]="category"
+                  [selected]="note.category.id == category.id">
           {{ category.name }}
+          {{ note.category.id == category.id }}
           </option>
         </select>
       </div>
-      <button class="btn btn-success" (click)="validate(note)">
+      <button class="btn btn-success" (click)="updateNote(note, i)">
         Validate
       </button>
       <button class="btn btn-default" (click)="note_edited = -1">
@@ -107,17 +109,17 @@
       </textarea>
     </div>
     <div class="form-group">
-      <select class="" [(ngModel)]="note.category">
+      <select class="form-control" [(ngModel)]="new_note.category">
         <option *ngFor="let category of categories"
               [ngValue]="category">
         {{ category.name }}
         </option>
       </select>
     </div>
-    <button class="btn btn-success" (click)="post_note(new_note)">
+    <button class="btn btn-success" (click)="newNote(new_note)">
       Validate
     </button>
-    <button class="btn btn-default" (click)="del_new_note()">
+    <button class="btn btn-default" (click)="deleteNewNote()">
       Close
     </button>
   </div>

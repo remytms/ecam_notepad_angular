@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
+import { Headers, Http, Response, RequestOptions } from '@angular/http';
+import { Observable} from 'rxjs/Rx';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { Category } from './category';
 import { CATEGORIES } from './mock-categories';
 
 @Injectable()
 export class CategoryService {
-  getCategories(): Promise<Category[]> {
-    return Promise.resolve(CATEGORIES);
-  }
+  private notesUrl = 'http://localhost:8070/notepad/api';
 
-  getCategoriesSlowly(): Promise<Category[]> {
-    return new Promise(resolve => {
-      // Simulate a server latency with 2 seconds delay
-      setTimeout(() => resolve(this.getCategories()), 2000);
-    });
+  constructor(private http: Http) {}
+
+  getCategories() { 
+    const url = `${this.notesUrl}/categories`;
+    return this.http.get(url)
+      .map((res: Response) => res.json());
   }
 }

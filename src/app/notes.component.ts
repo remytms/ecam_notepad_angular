@@ -5,6 +5,7 @@ import { Note } from './note';
 import { CATEGORIES } from './mock-categories';
 import { NOTES } from './mock-notes';
 import { NoteService } from './note.service';
+import { CategoryService } from './category.service';
 
 @Component({
   selector: 'my-notes',
@@ -21,17 +22,31 @@ export class NotesComponent implements OnInit {
   new_note: Note = null;
 
   constructor(
-    private noteService: NoteService) {
+    private note_service: NoteService,
+    private category_service: CategoryService) {
   }
 
   getNotes(): void {
-    this.noteService.getNotes().subscribe(
+    this.note_service.getNotes().subscribe(
       // function that runs on success
       data => { this.notes = data},
       // function that runs on error
       err => console.error(err),
       // function that runs on completion
-      () => console.log(this.notes)
+      //() => console.log(this.notes)
+      null
+    );
+  }
+
+  getCategories(): void {
+    this.category_service.getCategories().subscribe(
+      // function that runs on success
+      data => { this.categories = data},
+      // function that runs on error
+      err => console.error(err),
+      // function that runs on completion
+      //() => console.log(this.categories)
+      null
     );
   }
 
@@ -40,19 +55,40 @@ export class NotesComponent implements OnInit {
     this.note_edited = -1;
   }
 
-  post_note(note: Note) {
-    console.log(note);
+  newNote(note: Note) {
+    this.note_service.newNote(note).subscribe(
+      data => { this.notes.unshift(data) },
+      err => console.error(err),
+      () => { this.new_note = null }
+    );
   }
 
-  init_new_note() {
+  updateNote(note: Note, index: number): void {
+    this.note_service.updateNote(note).subscribe(
+      data => { this.notes[index] = data},
+      err => console.error(err),
+      () => { this.note_edited = -1; }
+    );
+  }
+
+  deleteNote(note: Note, index: number) {
+    this.note_service.deleteNote(note).subscribe(
+      data => { this.notes.splice(index, 1) },
+      err => console.error(err),
+      () => { }
+    );
+  }
+
+  initNewNote() {
     this.new_note = new Note();
   }
 
-  del_new_note() {
+  deleteNewNote() {
     this.new_note = null;
   }
 
   ngOnInit(): void {
     this.getNotes();
+    this.getCategories();
   }
 }
