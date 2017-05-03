@@ -28,7 +28,8 @@ export class CategoriesComponent implements OnInit {
       // function that runs on error
       err => console.error(err),
       // function that runs on completion
-      () => console.log(this.categories)
+      //() => console.log(this.categories)
+      null
     );
   }
 
@@ -37,15 +38,35 @@ export class CategoriesComponent implements OnInit {
     this.category_edited = -1;
   }
 
-  post_category(category: Category) {
-    console.log(category);
+  newCategory(category: Category) {
+    this.category_service.newCategory(category).subscribe(
+      data => { this.categories.unshift(data) },
+      err => console.error(err),
+      () => { this.new_category = null }
+    );
   }
 
-  init_new_category() {
+  updateCategory(category: Category, index: number) {
+    this.category_service.updateCategory(category).subscribe(
+      data => { this.categories[index] = data},
+      err => console.error(err),
+      () => { this.category_edited = -1; }
+    );
+  }
+
+  deleteCategory(category: Category, index: number) {
+    this.category_service.deleteCategory(category).subscribe(
+      data => { this.categories.splice(index, 1) },
+      err => console.error(err),
+      () => { }
+    );
+  }
+
+  initNewCategory() {
     this.new_category = new Category();
   }
 
-  del_new_category() {
+  deleteNewCategory() {
     this.new_category = null;
   }
 

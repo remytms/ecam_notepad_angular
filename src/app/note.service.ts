@@ -15,7 +15,6 @@ export class NoteService {
   constructor(private http: Http) {}
 
   getNotes() { 
-    //const url = `${this.notesUrl}/${id}`;
     const url = `${this.notesUrl}/notes`;
     return this.http.get(url)
       .map((res: Response) => res.json());

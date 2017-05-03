@@ -4,7 +4,7 @@
     <div class="btn-toolbar pull-right">
 
       <button class="btn btn-lg btn-default"
-        (click)="init_new_category()">
+        (click)="initNewCategory()">
         <i class="glyphicon glyphicon-plus"></i>
         Add category
       </button>
@@ -36,7 +36,7 @@
       </td>
       <td class="text-right">
         <button class="btn btn-sm btn-success"
-                (click)="validate(note)"
+                (click)="updateCategory(category, i)"
                 *ngIf="category_edited == i">
           Validate
         </button>
@@ -52,7 +52,7 @@
           Modify
         </button>
         <button class="btn btn-sm btn-default"
-                (click)="alert('del')">
+                (click)="deleteCategory(category, i)">
           <i class="glyphicon glyphicon-trash"></i>
           Delete
         </button>
@@ -68,11 +68,11 @@
       </td>
       <td class="text-right">
         <button class="btn btn-sm btn-success"
-                (click)="post_category(new_category)">
+                (click)="newCategory(new_category)">
           Validate
         </button>
         <button class="btn btn-sm btn-default"
-                (click)="del_new_category()">
+                (click)="deleteNewCategory()">
           Close
         </button>
       </td>
