@@ -9,7 +9,7 @@ import { CategoryService } from './category.service';
 
 @Component({
   selector: 'my-notes',
-  templateUrl: './app/notes.component.html',
+  templateUrl: './notes.component.html',
 })
 
 export class NotesComponent implements OnInit { 
