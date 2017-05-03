@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
+import { Headers, Http, Response, RequestOptions } from '@angular/http';
+import { Observable} from 'rxjs/Rx';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { Note } from './note';
 import { NOTES } from './mock-notes';
 
 @Injectable()
 export class NoteService {
-  getNotes(): Promise<Note[]> {
-    return Promise.resolve(NOTES);
-  }
+  private notesUrl = 'http://localhost:8070/notepad/api';
 
-  getNotesSlowly(): Promise<Note[]> {
-    return new Promise(resolve => {
-      // Simulate a server latency with 2 seconds delay
-      setTimeout(() => resolve(this.getNotes()), 2000);
-    });
+  constructor(private http: Http) {}
+
+  getNotes() { 
+    //const url = `${this.notesUrl}/${id}`;
+    const url = this.notesUrl + '/notes';
+    return this.http.get(url)
+      .map((res: Response) => res.json());
   }
 }
